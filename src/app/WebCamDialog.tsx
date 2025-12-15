@@ -1,5 +1,10 @@
 import jsQR from 'jsqr';
 import React, { useEffect, useCallback, useLayoutEffect, useRef } from 'react';
+import { IconButton } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import CloseIcon from '@mui/icons-material/Close';
 
 let video: HTMLVideoElement;
 let canvas: any;
@@ -20,9 +25,15 @@ function drawLine(
 
 type WebCamProps = {
   onFindVoucherNumber: (voucherNumber: string) => void;
+  onClose: () => void;
+  onError: (err: string) => void;
 };
 
-export const WebCam = ({ onFindVoucherNumber }: WebCamProps) => {
+export const WebCamDialog = ({
+  onFindVoucherNumber,
+  onClose,
+  onError,
+}: WebCamProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const dataRef = useRef<{ stream: MediaStream; found: boolean } | null>(null);
@@ -69,9 +80,6 @@ export const WebCam = ({ onFindVoucherNumber }: WebCamProps) => {
           dataRef.current!.found = true;
           onFindVoucherNumber(code.data);
         }
-      } else {
-        // outputMessage.hidden = false;
-        // outputData.parentElement.hidden = true;
       }
     }
 
@@ -102,7 +110,7 @@ export const WebCam = ({ onFindVoucherNumber }: WebCamProps) => {
           requestAnimationFrame(tick);
         })
         .catch((error) => {
-          console.error('Error accessing media devices.', error);
+          onError(error.toString());
         });
     } else {
       console.log('no media', media);
@@ -111,16 +119,30 @@ export const WebCam = ({ onFindVoucherNumber }: WebCamProps) => {
 
   useEffect(() => {
     return () => {
-      if (dataRef.current!.stream) {
-        dataRef.current!.stream.getTracks().forEach((track) => track.stop());
+      if (dataRef.current?.stream) {
+        dataRef.current?.stream?.getTracks().forEach((track) => track.stop());
       }
     };
   }, []);
 
   return (
-    <div>
-      <video ref={videoRef} style={{ display: 'none' }}></video>
-      <canvas ref={canvasRef}></canvas>
-    </div>
+    <Dialog open={true}>
+      <DialogTitle
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        Scan QR Code
+        <IconButton onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent sx={{ margin: 0, padding: 0, marginBottom: -10 }}>
+        <video ref={videoRef} style={{ display: 'none' }}></video>
+        <canvas ref={canvasRef}></canvas>
+      </DialogContent>
+    </Dialog>
   );
 };
