@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "lib": ["es6", "dom", "esnext"],
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "module": "es2022",
+    "target": "es6",
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true,
+    "removeComments": false,
+    "baseUrl": "./"
+  },
+  "exclude": ["node_modules"]
+}

@@ -1,0 +1,57 @@
+{
+  "name": "@mycomapbc/inat-lookup",
+  "version": "1.0.0",
+  "description": "Finds iNat ID for Mycomap BC vouchers, based on QR Code.",
+  "private": true,
+  "author": "Ben Keen",
+  "license": "MIT",
+  "scripts": {
+    "build": "npm run webpackProd",
+    "start": "npm run webpackDev",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpackDev": "webpack serve --config ./webpack.config.js --mode=development",
+    "webpackProd": "webpack --config ./webpack.config.js --mode=production",
+    "update-gh-pages": "npm run build && node build/gh-pages.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mycomapbc/inat-lookup.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mycomapbc/inat-lookup/issues"
+  },
+  "homepage": "https://github.com/mycomapbc/inat-lookup#readme",
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@fontsource/roboto": "^5.2.9",
+    "@mui/icons-material": "^7.3.6",
+    "@mui/material": "^7.3.6",
+    "@mui/x-date-pickers": "^8.21.0",
+    "buffer": "^6.0.3",
+    "dayjs": "^1.11.19",
+    "jsqr": "^1.4.0",
+    "query-string": "^9.3.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "stream-http": "^3.2.0",
+    "throttled-queue": "^3.0.0",
+    "https-browserify": "^1.0.0",
+    "browserify-zlib": "^0.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.27",
+    "@types/react-dom": "^18.3.7",
+    "babel-loader": "^10.0.0",
+    "css-loader": "^3.4.0",
+    "gh-pages": "^6.3.0",
+    "html-webpack-plugin": "^5.6.5",
+    "terser-webpack-plugin": "^5.3.14",
+    "ts-loader": "^9.4.2",
+    "typescript": "^5.9.3",
+    "webpack": "^5.103.0",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-middleware": "^7.4.5",
+    "webpack-dev-server": "^5.2.2"
+  }
+}
